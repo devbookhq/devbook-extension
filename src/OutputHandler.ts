@@ -10,7 +10,7 @@ class OutputHandler<I, O> {
   private hasResponded = false;
 
   public constructor(private message: ToExtensionMessage<I>) {
-    if (message.type !== Message.Input) throw new Error('Message must be of the type request');
+    if (message.type !== Message.Input) throw new Error('Message must be of the type request.');
   }
 
   public sendOutput(data: O) {
