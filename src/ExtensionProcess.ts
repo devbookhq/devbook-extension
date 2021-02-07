@@ -10,7 +10,7 @@ import {
   CallInput,
 } from './call';
 import { Status } from './status';
-import CallReturnHandler from './OutputHandler';
+import CallReturnHandler from './CallReturnHandler';
 import ExtensionModuleHandler from './ExtensionModuleHandler';
 
 export class ExtensionProcess {
