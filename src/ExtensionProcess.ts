@@ -6,11 +6,11 @@ import {
   StatusMessage,
 } from './message';
 import {
-  CallError,
-  CallInput,
-} from './call';
+  EventError,
+  EventInput,
+} from './event';
 import { Status } from './status';
-import CallReturnHandler from './CallReturnHandler';
+import EventReturnHandler from './EventReturnHandler';
 import ExtensionModuleHandler from './ExtensionModuleHandler';
 
 export class ExtensionProcess {
@@ -33,25 +33,25 @@ export class ExtensionProcess {
     }
 
     process.on('message', async <D>(message: ToExtensionMessage<D>) => {
-      if (message.type !== Message.Call) return;
+      if (message.type !== Message.Event) return;
 
-      type CurrentCallInput = CallInput[typeof message.callType];
+      type CurrentEventInput = EventInput[typeof message.eventType];
 
-      const callHandler = this.extensionModule.getCallHandler(message.callType);
-      const callReturnHandler = new CallReturnHandler(message);
+      const eventHandler = this.extensionModule.getEventHandler(message.eventType);
+      const eventReturnHandler = new EventReturnHandler(message);
 
-      if (!callHandler) {
-        return callReturnHandler.sendCallError(
-          CallError.UnknownCall,
-          { reason: `"${message.callType}" handler is not present in the extension.` });
+      if (!eventHandler) {
+        return eventReturnHandler.sendError(
+          EventError.UnknownEvent,
+          { reason: `"${message.eventType}" handler is not present in the extension.` });
       }
 
       try {
-        const callReturnData = await callHandler(message.data as unknown as CurrentCallInput);
-        return callReturnHandler.sendCallReturn(callReturnData);
+        const eventReturnData = await eventHandler(message.data as unknown as CurrentEventInput);
+        return eventReturnHandler.sendReturn(eventReturnData);
       } catch (error) {
-        return callReturnHandler.sendCallError(
-          CallError.CallHandlingError,
+        return eventReturnHandler.sendError(
+          EventError.EventError,
           { reason: error.message },
         );
       }

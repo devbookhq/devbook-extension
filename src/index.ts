@@ -1,6 +1,6 @@
 import ExtensionProcess from './ExtensionProcess';
 
-export * from './call';
+export * from './event';
 export * from './message';
 export * from './source';
 export * from './status';

@@ -1,26 +1,26 @@
 import {
-  Call,
-  CallInput,
-  CallOutput,
-} from './call';
+  Event,
+  EventInput,
+  EventOutput,
+} from './event';
 
 export type ExtensionEventHandlers = {
-  [Call.Search]: (data: CallInput[Call.Search]) => (Promise<CallOutput[Call.Search]> | CallOutput[Call.Search]);
-  [Call.GetSources]: (data: CallInput[Call.GetSources]) => (Promise<CallOutput[Call.GetSources]> | CallOutput[Call.GetSources]);
+  [Event.onDidQueryChange]: (data: EventInput[Event.onDidQueryChange]) => (Promise<EventOutput[Event.onDidQueryChange]> | EventOutput[Event.onDidQueryChange]);
+  [Event.getSources]?: (data: EventInput[Event.getSources]) => (Promise<EventOutput[Event.getSources]> | EventOutput[Event.getSources]);
 }
 
 class ExtensionModuleHandler {
-  private exports: { [handler in Call]: <I, O>(data: I) => Promise<O> | O };
+  private exports: { [handler in Event]: <I, O>(data: I) => Promise<O> | O };
 
   public constructor(extensionModulePath: string) {
     this.exports = require(extensionModulePath).default;
   }
 
-  public getCallHandler(callType: Call) {
-    type CurrentCallInput = CallInput[typeof callType];
-    type CurrentCallOutput = CallOutput[typeof callType];
+  public getEventHandler(eventType: Event) {
+    type CurrentEventInput = EventInput[typeof eventType];
+    type CurrentEventOutput = EventOutput[typeof eventType];
 
-    return (data: CurrentCallInput) => this.exports[callType]<CurrentCallInput, CurrentCallOutput>(data);
+    return (data: CurrentEventInput) => this.exports[eventType]<CurrentEventInput, CurrentEventOutput>(data);
   }
 }
 

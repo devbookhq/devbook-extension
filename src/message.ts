@@ -1,17 +1,17 @@
 import {
-  Call,
-  CallError,
-} from './call';
+  Event,
+  EventError,
+} from './event';
 import {
   Status,
   StatusError,
 } from './status';
 
 export enum Message {
-  Call = 'Call',
+  Event = 'Event',
 
-  CallReturn = 'CallReturn',
-  CallError = 'CallError',
+  EventReturn = 'EventReturn',
+  EventError = 'EventError',
 
   Status = 'Status',
   StatusError = 'StatusError',
@@ -23,19 +23,19 @@ interface MessageBase<D> {
   data: D;
 }
 
-export interface CallMessage<D> extends MessageBase<D> {
-  type: Message.Call;
-  callType: Call;
+export interface EventMessage<D> extends MessageBase<D> {
+  type: Message.Event;
+  eventType: Event;
 }
 
-export interface CallReturnMessage<D> extends MessageBase<D> {
-  type: Message.CallReturn;
-  callType: Call;
+export interface EventReturnMessage<D> extends MessageBase<D> {
+  type: Message.EventReturn;
+  eventType: Event;
 }
 
-export interface CallErrorMessage<D> extends MessageBase<D> {
-  type: Message.CallError;
-  error: CallError;
+export interface EventErrorMessage<D> extends MessageBase<D> {
+  type: Message.EventError;
+  error: EventError;
 }
 
 export interface StatusMessage<D> extends Omit<MessageBase<D>, 'id'> {
@@ -49,10 +49,10 @@ export interface ErrorStatusMessage<D = undefined> extends Omit<MessageBase<D>, 
 }
 
 export type ToExtensionMessage<D> =
-  CallMessage<D>;
+  EventMessage<D>;
 
 export type FromExtensionMessage<D> =
-  CallReturnMessage<D> |
-  CallErrorMessage<D> |
+  EventReturnMessage<D> |
+  EventErrorMessage<D> |
   StatusMessage<D> |
   ErrorStatusMessage;
