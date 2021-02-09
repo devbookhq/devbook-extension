@@ -1,6 +1,6 @@
 import { Source } from './source';
 
-// Enum values here are the exact names of functions that should be exported from the extension code
+// Enum values here are the exact names of functions that should be exported from the extension's code
 export enum Call {
   Search = 'search',
   GetSources = 'getSources',

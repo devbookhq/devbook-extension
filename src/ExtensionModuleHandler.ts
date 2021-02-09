@@ -4,7 +4,7 @@ import {
   CallOutput,
 } from './call';
 
-export type ExtensionExports = {
+export type ExtensionEventHandlers = {
   [Call.Search]: (data: CallInput[Call.Search]) => (Promise<CallOutput[Call.Search]> | CallOutput[Call.Search]);
   [Call.GetSources]: (data: CallInput[Call.GetSources]) => (Promise<CallOutput[Call.GetSources]> | CallOutput[Call.GetSources]);
 }
@@ -13,7 +13,7 @@ class ExtensionModuleHandler {
   private exports: { [handler in Call]: <I, O>(data: I) => Promise<O> | O };
 
   public constructor(extensionModulePath: string) {
-    this.exports = require(extensionModulePath);
+    this.exports = require(extensionModulePath).default;
   }
 
   public getCallHandler(callType: Call) {
