@@ -16,7 +16,15 @@ export interface EventInput {
   [Event.getSources]: {};
 };
 
+export interface Result {
+  id: string;
+  data: {
+    title: string;
+    body: string;
+  }
+}
+
 export interface EventOutput {
-  [Event.onDidQueryChange]: { results: unknown[] };
+  [Event.onDidQueryChange]: { results: Result[] };
   [Event.getSources]: { sources: Source[] };
 };
