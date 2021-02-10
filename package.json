@@ -8,7 +8,7 @@
     "prepublish": "npm run build"
   },
   "author": {
-    "name": "Devbook",
+    "name": "FoundryLabs, Inc.",
     "email": "hello@usedevbook.com",
     "url": "https://usedevbook.com/"
   },
