@@ -5,7 +5,7 @@ Your extension doesn’t have to implement the search logic or any user interfac
 1) Upload the search data into Devbook's search engine and keep them up-to-date.
 2) React to user events in the Devbook app.
 
-For uploading extension's search data into Devbook's search engine, use [Devbook Extension Admin API](https://github.com/DevbookHQ/devbook-extension-admin-node)
+For uploading extension's search data into Devbook's search engine, use [Devbook Extension Admin API](https://github.com/DevbookHQ/devbook-extension-admin-node).
 
 ## Usage
 ```js
