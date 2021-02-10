@@ -1,13 +1,21 @@
 {
   "name": "@devbookhq/extension",
   "version": "0.0.12",
-  "description": "",
+  "description": "Add search functionality to Devbook with custom extensions",
   "main": "lib/index.js",
   "scripts": {
     "build": "tsc",
     "prepublish": "npm run build"
   },
-  "author": "",
+  "author": {
+    "name": "Devbook",
+    "email": "hello@usedevbook.com",
+    "url": "https://usedevbook.com/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DevbookHQ/devbook-extension"
+  },
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^14.14.22",
