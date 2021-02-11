@@ -45,7 +45,7 @@ class Devbook {
     return result.data;
   }
 
-  public async search(indexes: string[] | string, query: string, pageSize: number = 10, page: number = 0): Promise<Result[]> {
+  public async search(indexes: string[] | string, query: string, pageSize: number = 10, pageNumber: number = 0): Promise<Result[]> {
     return this.request({
       method: 'POST',
       route: '/entry/query',
@@ -55,7 +55,7 @@ class Devbook {
       },
       params: {
         pageSize,
-        page,
+        pageNumber,
       },
     });
   }
