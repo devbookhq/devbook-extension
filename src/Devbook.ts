@@ -1,13 +1,8 @@
 import axios, { Method } from 'axios';
+import { Result } from './event';
 
 enum APIVersion {
   v1 = 'v1',
-}
-
-interface Entry {
-  id?: string;
-  title: string;
-  body: string;
 }
 
 interface ExtensionInfo {
@@ -50,7 +45,7 @@ class Devbook {
     return result.data;
   }
 
-  public async search<T = Entry>(indexes: string[] | string, query: string, page: number = 1, pageSize: number = 10): Promise<T[]> {
+  public async search(indexes: string[] | string, query: string, page: number = 1, pageSize: number = 10): Promise<Result[]> {
     return this.request({
       method: 'POST',
       route: '/entry/query',
@@ -65,7 +60,7 @@ class Devbook {
     });
   }
 
-  public async entry<T = Entry>(index: string, id: string): Promise<T> {
+  public async entry(index: string, id: string): Promise<Result> {
     return this.request({
       method: 'GET',
       route: `/entry/${id}`,
@@ -75,7 +70,7 @@ class Devbook {
     });
   }
 
-  public async entries<T = Entry>(index: string, page: number, pageSize: number): Promise<T[]> {
+  public async entries(index: string, page: number, pageSize: number): Promise<Result[]> {
     return this.request({
       method: 'GET',
       route: '/entry',
