@@ -11,7 +11,7 @@ import {
 } from './event';
 import { Status } from './status';
 import EventReturnHandler from './EventReturnHandler';
-import ExtensionModuleHandler from './ExtensionModuleHandler';
+import ExtensionModuleHandler, { ExtensionMode } from './ExtensionModuleHandler';
 
 export class ExtensionProcess {
   private extensionModule: ExtensionModuleHandler;
@@ -47,7 +47,12 @@ export class ExtensionProcess {
       }
 
       try {
-        const eventReturnData = await eventHandler(message.data as unknown as CurrentEventInput);
+        const eventReturnData = await eventHandler(
+          message.data as unknown as CurrentEventInput,
+          process.env.NODE_ENV === 'dev' ? ExtensionMode.Development : ExtensionMode.Production,
+          process.env.ACCESS_TOKEN,
+        );
+
         return eventReturnHandler.sendReturn(eventReturnData);
       } catch (error) {
         return eventReturnHandler.sendError(

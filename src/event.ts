@@ -18,10 +18,8 @@ export interface EventInput {
 
 export interface Result {
   id: string;
-  data: {
-    title: string;
-    body: string;
-  }
+  title: string;
+  body: string;
 }
 
 export interface EventOutput {
