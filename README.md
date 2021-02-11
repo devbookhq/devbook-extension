@@ -37,7 +37,7 @@ const extensionEventHandlers: ExtensionEventHandlers = {
     // Fetch your extension data from the https://api.usedevbook.com/:version/extension/:extensionID endpoint.
     // You can use our exported predefined functions for that:
 
-    // const results = await Devbook.search(['testIndex'], data.query);
+    // const results = await devbook.search(['testIndex'], data.query);
     // return { results };
   },
 }
