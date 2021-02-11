@@ -1,6 +1,6 @@
 {
   "name": "@devbookhq/extension",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "Add search functionality to Devbook with custom extensions",
   "main": "lib/index.js",
   "scripts": {
@@ -10,7 +10,7 @@
   "author": {
     "name": "FoundryLabs, Inc.",
     "email": "hello@usedevbook.com",
-    "url": "https://usedevbook.com/"
+    "url": "https://usedevbook.com"
   },
   "repository": {
     "type": "git",
@@ -28,7 +28,6 @@
     "lib",
     "package.json",
     "package-lock.json",
-    ".gitignore",
     "README.md"
   ]
 }
