@@ -1,6 +1,6 @@
 {
   "name": "@devbookhq/extension",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "description": "Add search functionality to Devbook with custom extensions",
   "main": "lib/index.js",
   "scripts": {
