@@ -45,17 +45,22 @@ class Devbook {
     return result.data;
   }
 
-  public async search(indexes: string[] | string, query: string, pageSize: number = 10, pageNumber: number = 0): Promise<Result[]> {
+
+  public async search(
+    indexes: string[] | string,
+    query: string,
+    pageSize: number = 10,
+    pageNumber: number = 0): Promise<Result[]> {
     return this.request({
       method: 'POST',
       route: '/entry/query',
-      data: {
-        indexes,
-        query,
-      },
       params: {
+        indexes,
         pageSize,
         pageNumber,
+      },
+      data: {
+        query,
       },
     });
   }
@@ -63,9 +68,10 @@ class Devbook {
   public async entry(index: string, id: string): Promise<Result> {
     return this.request({
       method: 'GET',
-      route: `/entry/${id}`,
-      data: {
+      route: `/entry`,
+      params: {
         index,
+        entryID: id,
       },
     });
   }
@@ -74,10 +80,8 @@ class Devbook {
     return this.request({
       method: 'GET',
       route: '/entry',
-      data: {
-        index,
-      },
       params: {
+        index,
         pageSize,
         pageID,
       }
