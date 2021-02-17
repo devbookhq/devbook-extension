@@ -14,6 +14,9 @@ interface DevbookOptions {
   apiVersion?: APIVersion;
 }
 
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
+type PartialBy<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>
+
 class Devbook {
   private apiVersion = APIVersion.v1;
 
@@ -33,40 +36,56 @@ class Devbook {
     }
 
     const { method, route, data, params } = options;
-    const result = await axios({
-      url: `https://api.usedevbook.com/${this.apiVersion}/extension/${process.env.EXTENSION_ID}${route ? route : ''}`,
-      method,
-      data,
-      params,
-      headers: {
-        'Authorization': `Bearer ${process.env.ACCESS_TOKEN}`,
-      },
-    })
-    return result.data;
+    try {
+      const result = await axios({
+        url: `https://api.usedevbook.com/${this.apiVersion}/extension/${process.env.EXTENSION_ID}${route ? route : ''}`,
+        method,
+        data,
+        params,
+        headers: {
+          'Authorization': `Bearer ${process.env.ACCESS_TOKEN}`,
+        },
+      })
+      return result.data;
+    } catch (error) {
+      if (error.response) {
+        throw new Error(error.response.data.error.message);
+      } else {
+        throw error;
+      }
+    }
   }
 
-
   public async search(
-    indexes: string[] | string,
+    indexOrIndexes: string[] | string,
     query: string,
     pageSize: number = 10,
     pageNumber: number = 0): Promise<Result[]> {
+
+    let indexes: string[];
+
+    if (typeof indexOrIndexes === 'string') {
+      indexes = [indexOrIndexes];
+    } else {
+      indexes = indexOrIndexes
+    }
+
     return this.request({
       method: 'POST',
       route: '/entry/query',
       params: {
-        indexes,
         pageSize,
         pageNumber,
       },
       data: {
+        indexes,
         query,
       },
     });
   }
 
   public async entry(index: string, id: string): Promise<Result> {
-    return this.request({
+    const data = await this.request({
       method: 'GET',
       route: `/entry`,
       params: {
@@ -74,10 +93,11 @@ class Devbook {
         entryID: id,
       },
     });
+    return data.entry;
   }
 
-  public async entries(index: string, pageSize: number = 100, pageID?: string): Promise<{ entries: Result[], pageID: string }> {
-    return this.request({
+  public async entries(index: string, pageSize: number = 100, pageID?: string): Promise<{ entries: Result[], pageID: string | undefined }> {
+    const data = await this.request({
       method: 'GET',
       route: '/entry',
       params: {
@@ -86,6 +106,7 @@ class Devbook {
         pageID,
       }
     });
+    return data;
   }
 
   public async info(): Promise<ExtensionInfo> {
