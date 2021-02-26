@@ -7,6 +7,8 @@ Your extension doesn’t have to implement the search logic or any user interfac
 
 For uploading extension's search data into Devbook's search engine, use [Devbook Extension Admin API](https://github.com/DevbookHQ/devbook-extension-admin-node).
 
+We're starting with a minimal example and will gradually add more ways how extensions can interact with Devbook.
+
 ## Installation
 ```
 npm install @devbookhq/extension
